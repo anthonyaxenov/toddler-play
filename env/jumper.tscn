@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4cm5dldbk3bn"]
+
+[ext_resource type="Script" path="res://env/jumper.gd" id="1_ew1cx"]
+[ext_resource type="Texture2D" uid="uid://cqywaqno4jjjc" path="res://assets/jumper-pack/Vector/spring_tilemap.png" id="1_ies7b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bcjha"]
+size = Vector2(25, 13)
+
+[sub_resource type="Animation" id="Animation_xfbbc"]
+resource_name = "idle"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_heje0"]
+resource_name = "push"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.149587, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [1, 2, 0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s3o57"]
+_data = {
+"idle": SubResource("Animation_xfbbc"),
+"push": SubResource("Animation_heje0")
+}
+
+[node name="Jumper" type="Area2D"]
+script = ExtResource("1_ew1cx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_bcjha")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s3o57")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-2.38419e-07, 2.38419e-07)
+scale = Vector2(0.172414, 0.12931)
+texture = ExtResource("1_ies7b")
+hframes = 3
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

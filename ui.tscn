@@ -1,0 +1,94 @@
+[gd_scene load_steps=12 format=3 uid="uid://dal36aug5wsrn"]
+
+[ext_resource type="Texture2D" uid="uid://djo2bo5ymur12" path="res://assets/ui-pack/PNG/green_button10.png" id="1_rdr2k"]
+[ext_resource type="Script" path="res://ui.gd" id="1_s3qj4"]
+[ext_resource type="Texture2D" uid="uid://bcu7bu7w31qhb" path="res://assets/game-icons/PNG/Black/1x/return.png" id="2_k617o"]
+[ext_resource type="Texture2D" uid="uid://cuayrx0tr2r75" path="res://assets/platformer-art-deluxe/Base pack/Items/star.png" id="3_ktbae"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7djep"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.662745)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="SystemFont" id="SystemFont_wtujh"]
+font_weight = 425
+subpixel_positioning = 0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7685w"]
+
+[sub_resource type="InputEventKey" id="InputEventKey_s1r07"]
+device = -1
+keycode = 4194310
+
+[sub_resource type="InputEventKey" id="InputEventKey_5bujs"]
+device = -1
+keycode = 4194309
+
+[sub_resource type="InputEventKey" id="InputEventKey_vcel8"]
+device = -1
+keycode = 82
+unicode = 114
+
+[sub_resource type="Shortcut" id="Shortcut_j1fpw"]
+events = [SubResource("InputEventKey_s1r07"), SubResource("InputEventKey_5bujs"), SubResource("InputEventKey_vcel8")]
+
+[node name="UI" type="CanvasLayer"]
+offset = Vector2(15, 15)
+transform = Transform2D(1, 0, 0, 1, 15, 15)
+script = ExtResource("1_s3qj4")
+
+[node name="StarCount" type="Label" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 130.0
+offset_bottom = 85.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_7djep")
+text = "0"
+horizontal_alignment = 2
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Star" type="Sprite2D" parent="StarCount"]
+position = Vector2(33, 33)
+texture = ExtResource("3_ktbae")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+offset_left = 1060.0
+offset_top = 20.0
+offset_right = 1110.0
+offset_bottom = 70.0
+texture = ExtResource("1_rdr2k")
+patch_margin_left = 6
+patch_margin_top = 6
+patch_margin_right = 6
+patch_margin_bottom = 6
+
+[node name="RestartBtn" type="Button" parent="NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = SubResource("SystemFont_wtujh")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/focus = SubResource("StyleBoxEmpty_7685w")
+shortcut = SubResource("Shortcut_j1fpw")
+icon = ExtResource("2_k617o")
+flat = true
+icon_alignment = 1
+expand_icon = true
+metadata/_edit_group_ = true
+metadata/_edit_use_anchors_ = true
+
+[connection signal="pressed" from="NinePatchRect/RestartBtn" to="." method="_on_restart_btn_pressed"]
